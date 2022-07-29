@@ -1,29 +1,18 @@
-// from typing import Generic, TypeVar
+import Uuid from "./utilities/uuid";
+import Compilable from "./interfaces/compilable";
+import Identifiable from "./interfaces/identifiable";
 
-// from dataclasses import dataclass
+type CompiledVariable<T> = [string, T, boolean?];
 
-// T = TypeVar("T")
-
-
-// @dataclass(order=True, frozen=True, slots=True)
-// class Variable(Generic[T]):
-//     name: str
-//     value: T
-//     is_cloud: bool
-
-//     def compile(self) -> tuple[str, T, bool] | tuple[str, T]:
-//         return (self.name, self.value, self.is_cloud) if self.is_cloud else (self.name, self.value)
-
-type CompiledVariable<T> = [string, T, boolean] | [string, T];
-
-class Variable<T> implements Compilable<CompiledVariable<T>> {
+class Variable<T> implements Identifiable, Compilable<CompiledVariable<T>> {
     constructor(
+        readonly id: Uuid,
         readonly name: string,
         readonly value: T,
         readonly isCloud: boolean,
     ) {}
 
-    compile = (): CompiledVariable<T> => (this.isCloud) ? [this.name, this.value, this.isCloud] : [this.name, this.value];
+    compile = (): CompiledVariable<T> => [this.name, this.value, (this.isCloud) ? this.isCloud : undefined];
 }
 
 export { Variable as default, CompiledVariable };

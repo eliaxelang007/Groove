@@ -1,0 +1,25 @@
+enum MotionOperation {
+    motion_movesteps,
+    motion_turnright,
+    motion_turnleft,
+    motion_pointindirection,
+    motion_pointtowards_menu,
+    motion_pointtowards,
+    motion_goto_menu,
+    motion_gotoxy,
+    motion_goto,
+    motion_glidesecstoxy,
+    motion_glideto_menu,
+    motion_glideto,
+    motion_changexby,
+    motion_setx,
+    motion_changeyby,
+    motion_sety,
+    motion_ifonedgebounce,
+    motion_setrotationstyle,
+    motion_xposition,
+    motion_yposition,
+    motion_direction,
+}
+
+export default MotionOperation;
