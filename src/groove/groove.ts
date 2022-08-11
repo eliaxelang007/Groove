@@ -1,3 +1,2 @@
-import SpriteCode from "./components/target";
-
-export default SpriteCode;
+import Project from "./components/components";
+export default Project;

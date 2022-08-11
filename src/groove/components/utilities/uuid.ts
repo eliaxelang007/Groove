@@ -6,8 +6,10 @@ const soup = "!#$%()*+,-./:;=?@[]^_`{|}~" +
     "abcdefghijklmnopqrstuvwxyz" +
     "0123456789";
 
-class Uuid implements Compilable<string>, Stringable {
-    readonly id: string;
+type CompiledUuid = string;
+
+class Uuid implements Compilable<CompiledUuid>, Stringable {
+    readonly id: CompiledUuid;
 
     private static generateUuid() {
         const length = 20;
@@ -29,4 +31,4 @@ class Uuid implements Compilable<string>, Stringable {
     toString = this.compile;
 }
 
-export default Uuid;
+export { Uuid as default, CompiledUuid };

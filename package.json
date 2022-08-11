@@ -3,6 +3,7 @@
     "@typescript-eslint/typescript-estree": "^5.31.0"
   },
   "devDependencies": {
-    "@types/node": "^18.6.2"
+    "@types/node": "^18.6.2",
+    "scratch-parser": "^5.0.0"
   }
 }

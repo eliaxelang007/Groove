@@ -1,14 +1,15 @@
-import Compilable from "../interfaces/compilable";
 import Identifiable from "../interfaces/identifiable";
+import Compilable from "../interfaces/compilable";
 
-import Uuid from "../utilities/uuid";
 import Value, { CompiledValue } from "../values/value";
+import Uuid, { CompiledUuid } from "../utilities/uuid";
+
 import ShadowType from "./shadow_type";
 
 type CompiledInput = [
     number,
-    string | CompiledValue,
-    (string | CompiledValue)?
+    CompiledValue | CompiledUuid,
+    (CompiledValue | CompiledUuid)?
 ];
 
 class Input implements Identifiable, Compilable<CompiledInput> {
@@ -17,9 +18,14 @@ class Input implements Identifiable, Compilable<CompiledInput> {
         readonly shadowType: ShadowType,
         readonly data: Value | Uuid,
         readonly shadow?: Value | Uuid,
-    ) {}
+    ) { }
 
-    compile = (): CompiledInput => [this.shadowType, this.data.compile(), (this.shadow !== undefined) ? this.shadow.compile() : this.shadow];
+    compile = () => [
+        this.shadowType,
+        this.data.compile(),
+        (this.shadow !== undefined) ?
+            this.shadow.compile() : this.shadow
+    ].filter(item => item !== undefined) as CompiledInput;
 }
 
-export {Input as default, CompiledInput};
+export { Input as default, CompiledInput };

@@ -1,7 +1,33 @@
+import ProcedureOperation from "./procedure";
 import ControlOperation from "./control";
+import SensingOperation from "./sensing";
 import MotionOperation from "./motion";
+import SoundOperation from "./sound";
+import EventOperation from "./event";
+import LooksOperation from "./looks";
+import DataOperation from "./data";
 
-const Operation = { ...ControlOperation, ...MotionOperation };
-type Operation = ControlOperation | MotionOperation;
+const ScratchOperation = {
+    ...ControlOperation,
+    ...DataOperation,
+    ...EventOperation,
+    ...LooksOperation,
+    ...MotionOperation,
+    ...OperatorOperation,
+    ...ProcedureOperation,
+    ...SensingOperation,
+    ...SoundOperation
+};
 
-export default Operation;
+type ScratchOperation =
+    ControlOperation |
+    DataOperation |
+    EventOperation |
+    LooksOperation |
+    MotionOperation |
+    OperatorOperation |
+    ProcedureOperation |
+    SensingOperation |
+    SoundOperation;
+
+export default ScratchOperation;

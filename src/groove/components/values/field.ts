@@ -1,10 +1,10 @@
 import Compilable from "../interfaces/compilable";
 import Identifiable from "../interfaces/identifiable";
-import Uuid from "../utilities/uuid";
+import Uuid, { CompiledUuid } from "../utilities/uuid";
 
 type CompiledField = [
     string,
-    string | null,
+    CompiledUuid | null,
 ];
 
 class Field implements Identifiable, Compilable<CompiledField> {

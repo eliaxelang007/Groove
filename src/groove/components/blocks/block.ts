@@ -1,29 +1,29 @@
-import Uuid from "../utilities/uuid";
-
 import Identifiable from "../interfaces/identifiable";
 import Compilable from "../interfaces/compilable";
 
-import Operation from "../operations/operation";
+import ScratchOperation from "../operations/operation";
+
+import Keyed, { CompiledKeyed } from "../utilities/keyed";
+import Uuid, { CompiledUuid } from "../utilities/uuid";
 
 import Field, { CompiledField } from "../values/field";
-
 import Input, { CompiledInput } from "./input";
-import Keyed, { CompiledKeyed } from "../utilities/keyed";
 
 type CompiledBlock = {
     opcode: string,
-    next: string | null,
-    parent: string | null,
+    next: CompiledUuid | null,
+    parent: CompiledUuid | null,
     inputs: CompiledKeyed<CompiledInput>,
     fields: CompiledKeyed<CompiledField>,
     shadow: boolean,
     topLevel: boolean,
 };
 
-class Block implements Identifiable, Compilable<CompiledBlock> {
+class Block<T extends ScratchOperation> implements Identifiable, Compilable<CompiledBlock> {
+    readonly id: Uuid;
+
     constructor(
-        readonly id: Uuid,
-        readonly operation: Operation,
+        readonly operation: T,
         readonly next: Uuid | null,
         readonly parent: Uuid | null,
         readonly inputs: Keyed<CompiledInput, Input>,
@@ -31,10 +31,11 @@ class Block implements Identifiable, Compilable<CompiledBlock> {
         readonly shadow: boolean,
         readonly topLevel: boolean,
     ) {
+        this.id = new Uuid();
     }
 
     compile = (): CompiledBlock => ({
-        opcode: Operation[this.operation],
+        opcode: ScratchOperation[this.operation],
         next: (this.next !== null) ? this.next.compile() : null,
         parent: (this.parent !== null) ? this.parent.compile() : null,
         inputs: this.inputs.compile(),

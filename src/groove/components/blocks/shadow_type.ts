@@ -1,7 +1,7 @@
 enum ShadowType {
-    unobscured,
-    none,
-    obscured,
+    unobscured = 1,
+    none = 2,
+    obscured = 3,
 }
 
 export default ShadowType;
